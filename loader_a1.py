@@ -43,6 +43,7 @@ def load_data():
 
     for d in data:
         d['text'] = text_cleaner(d['text'])
+        d['number_words'] = len(d['text'])
 
     train_set = data[0:10000]
     val_set = data[10000:11000]
