@@ -41,17 +41,25 @@ def load_data():
     with open("proj1_data.json") as fp:
         data = json.load(fp)
 
+    with open("offensive_words.json") as fp:
+        offensive_words = json.load(fp)
+
+    #print(offensive_words)
+
     for d in data:
         d['text'] = text_cleaner(d['text'])
         d['number_words'] = len(d['text'])
+        d['offensive'] = 0
+        for w in offensive_words:
+            if w in d['text']:
+                d['offensive'] = 1
+                break
 
     train_set = data[0:10000]
     val_set = data[10000:11000]
     test_set = data[11000:12000]
 
-
     words = get_freq(train_set)
-
     #print(words)
 
     add_vectors(train_set, words)
