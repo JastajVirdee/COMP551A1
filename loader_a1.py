@@ -32,7 +32,8 @@ def make_matrix(data_set):
     X = []
     y = []
     for d in data_set:
-        X.append([1, d['children'], d['controversiality'], int(d['is_root']), d['number_words'], d['offensive']] + d['xcounts'])
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['xcounts'])
+        #d['number_words'], d['offensive']  add in int thing 
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -72,10 +73,10 @@ def load_data():
 
 #X, y = make_matrix(train_set)
 
-train, val, test = load_data()
-X_train, y_train = make_matrix(train)
-X_val, y_val = make_matrix(val)
-X_test, y_test = make_matrix(val)
+#train, val, test = load_data()
+#X_train, y_train = make_matrix(train)
+#X_val, y_val = make_matrix(val)
+#X_test, y_test = make_matrix(val)
 
 #print(X_train)
 
