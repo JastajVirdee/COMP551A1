@@ -28,12 +28,43 @@ def add_vectors(data_set, words):
         v = build_vector(dp['text'], words)
         dp['xcounts'] = v
 
+def build_vector_60(comment_text, words):
+    vec = [0]*60
+    for w in comment_text:
+        if w in words:
+           i = words.index(w)
+           vec[i] += 1
+    return vec
+
+def add_vectors_60(data_set, words):
+    for dp in data_set:
+        v = build_vector_60(dp['text'], words)
+        dp['6counts'] = v
+
 def make_matrix(data_set):
     X = []
     y = []
     for d in data_set:
         X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['xcounts'])
-        #d['number_words'], d['offensive']  add in int thing 
+        #d['number_words'], d['offensive']  add in int thing
+        y.append(d['popularity_score'])
+    return (np.array(X), np.array(y))
+
+def make_matrix_3_1(data_set):
+    X = []
+    y = []
+    for d in data_set:
+        X.append([1, d['children'], d['controversiality'], int(d['is_root'])])
+        #d['number_words'], d['offensive']  add in int thing
+        y.append(d['popularity_score'])
+    return (np.array(X), np.array(y))
+
+def make_matrix_60(data_set):
+    X = []
+    y = []
+    for d in data_set:
+        X.append([1, d['children'], d['controversiality'], int(d['is_root'])] + d['6counts'])
+        #d['number_words'], d['offensive']  add in int thing
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -66,6 +97,10 @@ def load_data():
     add_vectors(train_set, words)
     add_vectors(test_set, words)
     add_vectors(val_set, words)
+
+    add_vectors_60(train_set, words[0:60])
+    add_vectors_60(test_set, words[0:60])
+    add_vectors_60(val_set, words[0:60])
 
     #print(train_set[0:5])
 

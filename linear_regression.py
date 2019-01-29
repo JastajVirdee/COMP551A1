@@ -23,7 +23,7 @@ def gradient_descent(X,y,wo,b,n,epsilon):
         a = n/(1+b*i)
         weights = wo - 2*a*(X_mult@wo-XY_mult)
         i=i+1
-        diff = abs(weights-wo)   
+        diff = abs(weights-wo)
         wo = weights
         #if i>100000:
         #    break
@@ -47,8 +47,3 @@ def gradient_descent(X,y,wo,b,n,epsilon):
 #weights1 = closed_form(X1,y1)
 #y_hat1 = np.transpose(X1@weights1)
 #y_hat2 = weights1[0]*[row[0] for row in X1] + weights1[1]
-
-
-
-
-
