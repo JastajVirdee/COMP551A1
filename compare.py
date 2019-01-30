@@ -106,4 +106,8 @@ cf_val_err = mse(y_val, cf_weights, X_val)
 print('\nClosed form top 60 words and new features:')
 print('  Train err:', cf_train_err)
 print('  Val err: ', cf_val_err)
+
+### part 4: best performing model on the test set
+cf_test_err = mse(y_test, cf_weights, X_test)
+print('  Test err:', cf_test_err)
 print('  CF Time: ', stop_cf-start_cf)
