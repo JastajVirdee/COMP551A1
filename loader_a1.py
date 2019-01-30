@@ -46,7 +46,6 @@ def make_matrix(data_set):
     y = []
     for d in data_set:
         X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['xcounts'])
-        #d['number_words'], d['offensive']  add in int thing
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -55,7 +54,6 @@ def make_matrix_3_1(data_set):
     y = []
     for d in data_set:
         X.append([1, d['children'], d['controversiality'], int(d['is_root'])])
-        #d['number_words'], d['offensive']  add in int thing
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -64,16 +62,23 @@ def make_matrix_60(data_set):
     y = []
     for d in data_set:
         X.append([1, d['children'], d['controversiality'], int(d['is_root'])] + d['6counts'])
-        #d['number_words'], d['offensive']  add in int thing
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
+
+def make_matrix_160(data_set):
+    X = []
+    y = []
+    for d in data_set:
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']) ] + d['xcounts'])      
+        y.append(d['popularity_score'])
+    return (np.array(X), np.array(y))
+
 
 def make_matrix_60_newfeatures(data_set):
     X = []
     y = []
     for d in data_set:
-        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['6counts'])
-        #d['number_words'], d['offensive']  add in int thing
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['6counts']) 
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 

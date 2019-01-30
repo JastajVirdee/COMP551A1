@@ -59,17 +59,11 @@ print('  GD Time: ', stop_gd-start_gd)
 
 ### part 2: top 60 words
 
-X_train, y_train = load.make_matrix_60(train)
-y_train = np.array(y_train, ndmin=2)
-y_train = np.transpose(y_train)
+X_train = load.make_matrix_60(train)[0]
 
-X_val, y_val = load.make_matrix_60(val)
-y_val = np.array(y_val, ndmin=2)
-y_val = np.transpose(y_val)
+X_val= load.make_matrix_60(val) [0]
 
-X_test, y_test = load.make_matrix_60(test)
-y_test = np.array(y_test, ndmin=2)
-y_test = np.transpose(y_test)
+X_test = load.make_matrix_60(test)[0]
 
 start_cf = timeit.default_timer()
 cf_weights = lr.closed_form(X_train, y_train)
@@ -82,20 +76,26 @@ print('  Train err:', cf_train_err)
 print('  Val err: ', cf_val_err)
 print('  CF Time: ', stop_cf-start_cf)
 
+### part 3 all 160 words
 
-### part 3: two new features + top 60 words
+X_train = load.make_matrix_160(train)[0]
+X_val = load.make_matrix_160(val)[0]
 
-X_train, y_train = load.make_matrix_60_newfeatures(train)
-y_train = np.array(y_train, ndmin=2)
-y_train = np.transpose(y_train)
+cf_weights = lr.closed_form(X_train, y_train)
+cf_train_err = mse(y_train, cf_weights, X_train)
+cf_val_err = mse(y_val,cf_weights,X_val)
+print('\nClosed form all 160 words:')
+print('  Train err:', cf_train_err)
+print('  Val err: ', cf_val_err)
 
-X_val, y_val = load.make_matrix_60_newfeatures(val)
-y_val = np.array(y_val, ndmin=2)
-y_val = np.transpose(y_val)
 
-X_test, y_test = load.make_matrix_60_newfeatures(test)
-y_test = np.array(y_test, ndmin=2)
-y_test = np.transpose(y_test)
+### part 4: two new features + top 60 words
+
+X_train = load.make_matrix_60_newfeatures(train)[0]
+
+X_val = load.make_matrix_60_newfeatures(val)[0]
+
+X_test = load.make_matrix_60_newfeatures(test)[0]
 
 start_cf = timeit.default_timer()
 cf_weights = lr.closed_form(X_train, y_train)
@@ -107,7 +107,7 @@ print('\nClosed form top 60 words and new features:')
 print('  Train err:', cf_train_err)
 print('  Val err: ', cf_val_err)
 
-### part 4: best performing model on the test set
+### part 5: best performing model on the test set
 cf_test_err = mse(y_test, cf_weights, X_test)
 print('  Test err:', cf_test_err)
 print('  CF Time: ', stop_cf-start_cf)
