@@ -35,9 +35,10 @@ stop_cf = timeit.default_timer()
 
 cf_train_err = mse(y_train, cf_weights, X_train)
 cf_val_err = mse(y_val, cf_weights, X_val)
-print('Train err:', cf_train_err)
-print('Val err: ', cf_val_err)
-print('CF Time: ', stop_cf-start_cf)
+print('Closed form no text features:')
+print('  Train err:', cf_train_err)
+print('  Val err: ', cf_val_err)
+print('  CF Time: ', stop_cf-start_cf)
 
 wo = np.ones((4,1))
 b = 1000000
@@ -49,9 +50,10 @@ stop_gd = timeit.default_timer()
 
 gd_train_err = mse(y_train, gd_weights, X_train)
 gd_val_err = mse(y_val, gd_weights, X_val)
-print('\nTrain err:', gd_train_err)
-print('Val err:', gd_val_err)
-print('GD Time: ', stop_gd-start_gd)
+print('\nGradient descent no text features:')
+print('  Train err:', gd_train_err)
+print('  Val err:', gd_val_err)
+print('  GD Time: ', stop_gd-start_gd)
 
 
 
@@ -75,6 +77,33 @@ stop_cf = timeit.default_timer()
 
 cf_train_err = mse(y_train, cf_weights, X_train)
 cf_val_err = mse(y_val, cf_weights, X_val)
-print('\nTrain err:', cf_train_err)
-print('Val err: ', cf_val_err)
-print('CF Time: ', stop_cf-start_cf)
+print('\nClosed form top 60 words:')
+print('  Train err:', cf_train_err)
+print('  Val err: ', cf_val_err)
+print('  CF Time: ', stop_cf-start_cf)
+
+
+### part 3: two new features + top 60 words
+
+X_train, y_train = load.make_matrix_60_newfeatures(train)
+y_train = np.array(y_train, ndmin=2)
+y_train = np.transpose(y_train)
+
+X_val, y_val = load.make_matrix_60_newfeatures(val)
+y_val = np.array(y_val, ndmin=2)
+y_val = np.transpose(y_val)
+
+X_test, y_test = load.make_matrix_60_newfeatures(test)
+y_test = np.array(y_test, ndmin=2)
+y_test = np.transpose(y_test)
+
+start_cf = timeit.default_timer()
+cf_weights = lr.closed_form(X_train, y_train)
+stop_cf = timeit.default_timer()
+
+cf_train_err = mse(y_train, cf_weights, X_train)
+cf_val_err = mse(y_val, cf_weights, X_val)
+print('\nClosed form top 60 words and new features:')
+print('  Train err:', cf_train_err)
+print('  Val err: ', cf_val_err)
+print('  CF Time: ', stop_cf-start_cf)

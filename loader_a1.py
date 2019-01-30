@@ -68,6 +68,15 @@ def make_matrix_60(data_set):
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
+def make_matrix_60_newfeatures(data_set):
+    X = []
+    y = []
+    for d in data_set:
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['6counts'])
+        #d['number_words'], d['offensive']  add in int thing
+        y.append(d['popularity_score'])
+    return (np.array(X), np.array(y))
+
 def load_data():
 
     with open("proj1_data.json") as fp:
@@ -80,7 +89,11 @@ def load_data():
 
     for d in data:
         d['text'] = text_cleaner(d['text'])
-        d['number_words'] = len(d['text'])
+        #d['number_words'] = len(d['text'])
+        if (len(d['text']) > 5):
+            d['number_words'] = 1
+        else:
+            d['number_words'] = 0
         d['offensive'] = 0
         for w in offensive_words:
             if w in d['text']:

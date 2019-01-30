@@ -5,7 +5,7 @@ Created on Jan 24, 2019
 '''
 import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.duration.tests.test_survfunc import test_weights1
+#from statsmodels.duration.tests.test_survfunc import test_weights1
 
 def closed_form(X,y):
     X_tr = np.transpose(X)
