@@ -69,7 +69,7 @@ def make_matrix_160(data_set):
     X = []
     y = []
     for d in data_set:
-        X.append([1, d['children'], d['controversiality'], int(d['is_root']) ] + d['xcounts'])      
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']) ] + d['xcounts'])
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -78,7 +78,7 @@ def make_matrix_60_newfeatures(data_set):
     X = []
     y = []
     for d in data_set:
-        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['6counts']) 
+        X.append([1, d['children'], d['controversiality'], int(d['is_root']),d['number_words'], d['offensive'] ] + d['6counts'])
         y.append(d['popularity_score'])
     return (np.array(X), np.array(y))
 
@@ -110,6 +110,9 @@ def load_data():
     test_set = data[11000:12000]
 
     words = get_freq(train_set)
+    #with open('words.txt', 'w') as wfp:
+    #    w_string = ' '.join(words)
+    #    wfp.write(w_string)
     #print(words)
 
     add_vectors(train_set, words)
