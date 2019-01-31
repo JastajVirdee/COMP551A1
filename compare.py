@@ -81,13 +81,16 @@ print('  CF Time: ', stop_cf-start_cf)
 X_train = load.make_matrix_160(train)[0]
 X_val = load.make_matrix_160(val)[0]
 
+start_cf = timeit.default_timer()
 cf_weights = lr.closed_form(X_train, y_train)
+stop_cf = timeit.default_timer()
+
 cf_train_err = mse(y_train, cf_weights, X_train)
 cf_val_err = mse(y_val,cf_weights,X_val)
 print('\nClosed form all 160 words:')
 print('  Train err:', cf_train_err)
 print('  Val err: ', cf_val_err)
-
+print('  CF Time: ', stop_cf-start_cf)
 
 ### part 4: two new features + top 60 words
 
