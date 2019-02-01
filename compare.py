@@ -29,16 +29,12 @@ train, val, test = load.load_data()
 
 # generating sets using only basic features and bias
 X_train, y_train = load.make_matrix_3_1(train)
-y_train = np.array(y_train, ndmin=2)
+y_train = np.array(y_train, ndmin=2)                # necessary for gd expectations
 y_train = np.transpose(y_train)
 
 X_val, y_val = load.make_matrix_3_1(val)
 y_val = np.array(y_val, ndmin=2)
 y_val = np.transpose(y_val)
-
-X_test, y_test = load.make_matrix_3_1(test)
-y_test = np.array(y_test, ndmin=2)
-y_test = np.transpose(y_test)
 
 
 ### timing section.
@@ -115,9 +111,12 @@ print('  CF Time: ', stop_cf-start_cf)
 
 ### part 4: two new features + top 60 words
 
-X_train = load.make_matrix_60_newfeatures(train)[0]
+X_train= load.make_matrix_60_newfeatures(train)[0]
 X_val = load.make_matrix_60_newfeatures(val)[0]
-X_test = load.make_matrix_60_newfeatures(test)[0]
+X_test, y_test = load.make_matrix_60_newfeatures(test)
+
+y_test = np.array(y_test, ndmin=2)
+y_test = np.transpose(y_test)
 
 start_cf = timeit.default_timer()
 cf_weights = lr.closed_form(X_train, y_train)
